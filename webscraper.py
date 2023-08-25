@@ -35,7 +35,10 @@ for e in eras[3:]:
         type = b.find('div', class_='text-block-178-copy').text
         series = b.find('div', class_='series-wrapper-timeline').find('a').text
         img_src = b.find('a').find('img').attrs['src']
-        data.append([title, author, published, series, type, img_src])
+        if series not in ['Canon Movie Novelizations', '', 'Solo: A Star Wars Story Series', 'Clone Wars Animated Show Adaptations', 'Solo: A Star Wars Story Series'] and title != 'Rogue One':
+            data.append([title, author, published, series, type, img_src])
+
+data.sort(key=lambda x: (x[4], x[3]))
 
 with open('canon_novels.csv', 'w', newline='') as file:
     writer = csv.writer(file)
