@@ -9,38 +9,18 @@ import time
 
 driver = webdriver.Chrome(service=Service(ChromeDriverManager().install()))
 url = 'https://youtini.com/list/publishing-order'
-# wait = WebDriverWait(driver, 10)
 driver.delete_all_cookies()
 driver.get(url)
 time.sleep(10)
 get_url = driver.current_url
-# wait.until(EC.visibility_of_all_elements_located())
 
-titles = []
+eras = []
 
-# if get_url == url:
-#     page_source = driver.page_source
-
-items = driver.find_elements(
+results = driver.find_elements(
     By.CLASS_NAME, 'order-grid')
 
-count = 0
-for item in items:
-    try:
-        titles.append(item.get_attribute('innerHTML'))
-    except:
-        titles.append('No text')
-        count += 1
+for item in results:
+    eras.append(item.get_attribute('innerHTML'))
 
-print(len(items), count)
-
-
-# soup = BeautifulSoup(page_source, features='html.parser')
-
-# canon_break = soup.find(id='Age-of-Rebellion')
-
-# lists = canon_break.find_all_next('div', class_='ro-collection-list-wrapper')
-
-# for l in lists:
-#     books = l.find_all('div', class_='w-dyn-item')
-#     print(len(books))
+for e in eras[3:]:
+    soup = BeautifulSoup(e, features='html.parser')
